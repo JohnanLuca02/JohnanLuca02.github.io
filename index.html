@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Johnan Luca | Microengineering & Robotics Portfolio</title>
+    <style>
+        :root {
+            --primary: #003366;
+            --secondary: #005b9f;
+            --bg: #f4f7f6;
+            --text: #333;
+            --card-bg: #fff;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        header p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 10px;
+            margin-top: 2rem;
+        }
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill-tag {
+            background: var(--secondary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        .project-card h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        .contact-section {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 8px;
+        }
+        a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Johnan Luca</h1>
+        <p>BSc Student in Microengineering @ EPFL | Robotics & Hardware Designer</p>
+    </header>
+
+    <div class="container">
+        
+        <section id="about">
+            <h2>About Me</h2>
+            <p>I am a Microengineering student at EPFL with a strong passion for pure robotics, MedTech, and applications in extreme environments. I specialize in multidisciplinary projects, combining mechanical understanding with advanced electronics (custom PCB design, power distribution). </p>
+            <p><strong>Objective:</strong> I am currently looking for a 1-month (unpaid) robotics internship between August 1st and August 31st, 2026, to further apply my skills in real-world extreme environment challenges.</p>
+        </section>
+
+        <section id="skills">
+            <h2>Core Skills</h2>
+            <div class="skills-grid">
+                <span class="skill-tag">PCB Design</span>
+                <span class="skill-tag">Embedded Systems</span>
+                <span class="skill-tag">C / C++</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">RTOS</span>
+                <span class="skill-tag">CAD (Fusion360, CATIA V5)</span>
+                <span class="skill-tag">3D Printing</span>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Featured Projects</h2>
+            <p><em>Note: This portfolio is continuously updated. Below is a selection of my academic and side projects.</em></p>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>BYTE (BARK Project)</h3>
+                    <p><strong>Role:</strong> Project Leader & Hardware Designer</p>
+                    <p>Led a multidisciplinary team to build EPFL's first fully student-built quadruped. Personally designed the Power Distribution Board (PDB) and Pre-Charge Circuit to manage high-current distribution and inrush current protection.</p>
+                </div>
+
+                <div class="project-card">
+                    <h3>PUPPER & DINGO</h3>
+                    <p><strong>Role:</strong> Electronics Sub-team Lead</p>
+                    <p>Inherited and troubleshot non-functional electronics for the DINGO robot. Led a sub-team to build Stanford's open-source Pupper V3, co-assembling the platform and independently designing a custom robotic arm.</p>
+                </div>
+
+                <div class="project-card">
+                    <h3>Teleoperated Robo-Arm</h3>
+                    <p><strong>Role:</strong> Solo Developer</p>
+                    <p>Personal mechatronic project. Developed a remote-controlled 5-axis robotic arm, designing both the physical mechanisms and the embedded control logic.</p>
+                </div>
+
+                </div>
+        </section>
+
+        <section class="contact-section">
+            <h2>Let's Connect</h2>
+            <p>Interested in my work or have an opportunity?</p>
+            <p>Email: <a href="mailto:johnan.luca@outlook.ch">johnan.luca@outlook.ch</a></p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/johnan-luca" target="_blank">linkedin.com/in/johnan-luca</a></p>
+        </section>
+
+    </div>
+
+</body>
+</html>
