@@ -78,7 +78,7 @@ p {
 }
 
 .skill-tag:hover{
-	transform: scale(1.08);          /* Ingrandisce il tag del 8% (usa 1.05 per un effetto più leggero) */
+	transition: transform 0.5s ease;         
     background-color: rgba(0, 210, 255, 0.2); /* Opzionale: rende lo sfondo leggermente più luminoso */
     border-color: var(--accent-cyan); /* Opzionale: illumina il bordo al passaggio del mouse */
 }
@@ -179,7 +179,7 @@ a:hover {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(58, 123, 213, 0.1);
+    background: rgba(0, 210, 255, 0.3);
     color: var(--accent-cyan);
     border: 1px solid rgba(0, 210, 255, 0.3);
     padding: 10px 20px;
@@ -190,7 +190,7 @@ a:hover {
 }
 
 .back-button:hover {
-    background-color: rgba(0, 210, 255, 0.2);
+    background-color: rgba(63, 198, 228, 0.432);
     transform: translateX(-5px); /* Si sposta leggermente a sinistra all'hover */
     color: #fff;
 }
