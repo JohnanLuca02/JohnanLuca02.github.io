@@ -164,3 +164,63 @@ a {
 a:hover {
 	color: #fff;
 }
+
+/* --- NUOVE REGOLE PER LINK E PAGINE DETTAGLIO --- */
+
+/* Rende la card cliccabile senza rovinare il testo */
+.project-link {
+    text-decoration: none;
+    color: inherit;
+    display: block; /* Fondamentale per far cliccare tutta l'area */
+}
+
+/* Stile per il pulsante "Torna alla Home" */
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(58, 123, 213, 0.1);
+    color: var(--accent-cyan);
+    border: 1px solid rgba(0, 210, 255, 0.3);
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    transition: all 0.2s ease;
+}
+
+.back-button:hover {
+    background-color: rgba(0, 210, 255, 0.2);
+    transform: translateX(-5px); /* Si sposta leggermente a sinistra all'hover */
+    color: #fff;
+}
+
+/* Griglia per la Galleria Multimediale */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+
+/* Stile uniforme per foto e video nella galleria */
+.gallery-item {
+    width: 100%;
+    height: 250px;
+    object-fit: cover; /* Taglia i bordi in eccesso per fare quadrati/rettangoli perfetti */
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: var(--bg-card);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: scale(1.02);
+}
+
+.project-details-text {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
