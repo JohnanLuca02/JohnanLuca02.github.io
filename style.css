@@ -58,7 +58,7 @@ p {
 	font-size: 1.05rem;
 }
 
-/* Skills */
+/* Skills principali */
 .skills-grid {
 	display: flex;
 	flex-wrap: wrap;
@@ -223,4 +223,32 @@ a:hover {
     font-size: 1.1rem;
     color: var(--text-muted);
     margin-bottom: 2rem;
+}
+
+/* Contenitore per le skill dentro le card */
+.project-skills-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px; /* Distanza dal testo della descrizione */
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Sottile linea di separazione (opzionale) */
+}
+
+/* Stile del singolo mini-tag */
+.mini-tag {
+    background: rgba(0, 210, 255, 0.05); /* Sfondo quasi trasparente */
+    color: var(--text-muted); /* Colore del testo più spento */
+    border: 1px solid rgba(0, 210, 255, 0.2);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem; /* Più piccoli rispetto a quelli principali */
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+/* Effetto hover (opzionale) anche per i mini-tag */
+.project-card:hover .mini-tag {
+    color: var(--accent-cyan);
+    border-color: rgba(0, 210, 255, 0.4);
 }
