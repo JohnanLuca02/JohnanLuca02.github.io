@@ -75,12 +75,65 @@ p {
 	font-size: 0.9rem;
 	font-weight: 600;
 	letter-spacing: 0.5px;
+	cursor: pointer;
+
+	/* Configurazione per permettere l'espansione interna */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Nasconde la barra quando è collassata */
+    min-width: 130px;
+    transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+
 }
 
 .skill-tag:hover{
-	transition: transform 0.5s ease;         
-    background-color: rgba(0, 210, 255, 0.2); /* Opzionale: rende lo sfondo leggermente più luminoso */
-    border-color: var(--accent-cyan); /* Opzionale: illumina il bordo al passaggio del mouse */
+	transform: translateY(-4px); /* Alziamo invece di ingrandire, è più elegante con la barra */
+    background-color: rgba(0, 210, 255, 0.15); 
+    border-color: var(--accent-cyan);
+    box-shadow: 0 4px 12px rgba(0, 210, 255, 0.1);
+}
+
+/* TESTO DELLA SKILL */
+.skill-name {
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.skill-level-track {
+    width: 100%;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    
+    /* Stato iniziale: INVISIBILE E COMPRESSO */
+    margin-top: 0px;
+    max-height: 0px; 
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.skill-level-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--accent-cyan), var(--accent-blue));
+    border-radius: 4px;
+    
+    /* Fa partire l'animazione di riempimento da 0 */
+    width: 0%; 
+    transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* 1. Il tracciato si espande e appare */
+.skill-tag:hover .skill-level-track {
+    margin-top: 8px; /* Crea spazio tra il testo e la barra */
+    max-height: 10px; 
+    opacity: 1;
+}
+
+/* 2. Opzionale: il testo si rimpicciolisce leggermente per fare spazio */
+.skill-tag:hover .skill-name {
+    transform: scale(0.95);
 }
 
 /* Project Cards */
