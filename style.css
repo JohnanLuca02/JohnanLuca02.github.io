@@ -248,6 +248,36 @@ p {
     transform: scale(0.95);
 }
 
+/* Su touch il :hover dura solo finché il dito resta premuto, quindi la barra
+   sarebbe raggiungibile solo tenendo premuto. Su questi dispositivi togliamo del
+   tutto la progressive disclosure: livello e barra restano sempre visibili. */
+@media (hover: none) {
+    .skill-reveal {
+        max-height: 40px;
+        opacity: 1;
+        margin-top: 8px;
+    }
+
+    .skill-level-fill {
+        width: calc(var(--value, 0) * 10%);
+    }
+
+    .skill-tag {
+        cursor: default;
+    }
+
+    /* Niente sollevamento né rimpicciolimento al tocco: farebbero solo
+       sobbalzare la griglia, dato che non c'è più nulla da rivelare. */
+    .skill-tag:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .skill-tag:hover .skill-name {
+        transform: none;
+    }
+}
+
 /* Project Cards */
 .projects-grid {
 	display: grid;
