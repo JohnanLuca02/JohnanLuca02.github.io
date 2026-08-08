@@ -139,9 +139,9 @@ p {
        Il gradiente non si "muove": la barra si limita a rivelarne una porzione. */
     background-image: linear-gradient(to right,
         #ef4444 0%,
-        #ef4444 25%,
-        #facc15 35%,
-        #facc15 65%,
+        #ef4444 20%,
+        #facc15 30%,
+        #facc15 55%,
         #22c55e 75%,
         #22c55e 100%
     );
@@ -335,6 +335,192 @@ a:hover {
     font-size: 1.1rem;
     color: var(--text-muted);
     margin-bottom: 2rem;
+}
+
+/* Data e ruolo sotto il titolo di progetto */
+.project-meta {
+    font-size: 0.9rem;
+    color: var(--accent-cyan);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+}
+
+/* --- RADAR CHART (Contributo personale vs difficolta' del progetto) --- */
+
+.radar-figure {
+    /* La coppia di colori delle serie e' stata validata proprio su questa
+       superficie (#1a1d24): se cambi lo sfondo, rivalida i colori. */
+    --viz-s1: #3987e5;   /* Personal Contribution */
+    --viz-s2: #d95926;   /* Project Difficulty    */
+
+    margin: 0 0 3rem 0;
+    padding: 24px;
+    background-color: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+
+    display: grid;
+    grid-template-columns: minmax(260px, 380px) minmax(220px, 1fr);
+    grid-template-areas:
+        "caption caption"
+        "legend  legend"
+        "chart   table";
+    align-items: center;
+    gap: 8px 32px;
+}
+
+.radar-caption {
+    grid-area: caption;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.radar-caption span {
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+/* Legenda: l'identita' della serie non e' mai affidata al solo colore,
+   c'e' sempre anche l'etichetta testuale (e la tabella qui sotto). */
+/* Nota per i progetti con una sola serie */
+.radar-note {
+    grid-area: legend;
+    margin: 0 0 8px 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    max-width: 62ch;
+}
+
+.radar-legend {
+    grid-area: legend;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    margin: 0 0 8px 0;
+    padding: 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.radar-legend li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.radar-swatch {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.radar-svg {
+    grid-area: chart;
+    width: 100%;
+    height: auto;
+}
+
+/* Griglia e assi restano recessivi: non devono competere con i dati */
+.radar-grid {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.08);
+    stroke-width: 1;
+}
+
+.radar-grid-outer {
+    stroke: rgba(255, 255, 255, 0.16);
+}
+
+.radar-spoke {
+    stroke: rgba(255, 255, 255, 0.12);
+    stroke-width: 1;
+}
+
+.radar-tick {
+    fill: var(--text-muted);
+    font-size: 9px;
+    text-anchor: middle;
+    opacity: 0.7;
+}
+
+.radar-axis-label {
+    fill: var(--text-main);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.radar-area {
+    fill-opacity: 0.22;
+    stroke-width: 2;
+    stroke-linejoin: round;
+}
+
+/* Anello del colore della superficie: tiene leggibili i punti dove le due serie si sovrappongono */
+.radar-dot {
+    stroke: var(--bg-card);
+    stroke-width: 2;
+}
+
+.radar-contribution { fill: var(--viz-s1); stroke: var(--viz-s1); }
+.radar-difficulty   { fill: var(--viz-s2); stroke: var(--viz-s2); }
+.radar-dot.radar-contribution { fill: var(--viz-s1); stroke: var(--bg-card); }
+.radar-dot.radar-difficulty   { fill: var(--viz-s2); stroke: var(--bg-card); }
+
+/* Vista tabellare: i valori esatti, utile anche a screen reader e in stampa */
+.radar-table {
+    grid-area: table;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.radar-table th,
+.radar-table td {
+    padding: 7px 10px;
+    text-align: right;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    white-space: nowrap;
+}
+
+.radar-table thead th {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.radar-table tbody th {
+    text-align: left;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.radar-table tbody td {
+    font-variant-numeric: tabular-nums;
+    color: var(--text-main);
+}
+
+@media (max-width: 720px) {
+    .radar-figure {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "caption"
+            "legend"
+            "chart"
+            "table";
+        gap: 8px 0;
+    }
+
+    .radar-table {
+        width: 100%;
+        margin-top: 16px;
+    }
 }
 
 
