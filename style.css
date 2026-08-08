@@ -39,6 +39,38 @@ header p {
 	margin-top: 10px;
 }
 
+/* Header della home: due scatti dai talk come texture dietro al titolo.
+   ::before porta le foto, ::after lo scrim che tiene leggibile il testo. */
+.header-hero {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	padding: 6.5rem 2rem;
+}
+
+.header-hero::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -2;
+	background-image: url("images/talk-1.jpg"), url("images/talk-2.jpg");
+	background-repeat: no-repeat, no-repeat;
+	background-position: left center, right center;
+	background-size: auto 100%, auto 100%;
+	filter: grayscale(30%);
+	opacity: 0.28;
+}
+
+.header-hero::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background-image:
+		linear-gradient(90deg, rgba(15,17,21,0) 0%, rgba(15,17,21,0.55) 30%, rgba(15,17,21,0.82) 50%, rgba(15,17,21,0.55) 70%, rgba(15,17,21,0) 100%),
+		linear-gradient(180deg, rgba(15,17,21,0.5) 0%, rgba(15,17,21,0) 35%, rgba(15,17,21,0) 62%, rgba(15,17,21,0.75) 100%);
+}
+
 .container {
 	max-width: 1200px;
 	margin: 0 auto;
@@ -56,6 +88,43 @@ h2 {
 
 p {
 	font-size: 1.05rem;
+}
+
+/* About: testo a sinistra, foto verticale a destra */
+.about-layout {
+	display: grid;
+	grid-template-columns: 1fr minmax(190px, 240px);
+	gap: 2.5rem;
+	align-items: center;
+}
+
+/* La colonna testo è larga ~850px: senza cap le righe superano i 110 caratteri. */
+.about-text p {
+	max-width: 62ch;
+}
+
+.about-text p:first-child {
+	margin-top: 0;
+}
+
+.about-photo {
+	margin: 0;
+}
+
+.about-photo img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: 12px;
+	border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.about-photo figcaption {
+	margin-top: 10px;
+	font-size: 0.8rem;
+	line-height: 1.4;
+	color: var(--text-muted);
+	text-align: center;
 }
 
 /* Skills principali */
@@ -506,6 +575,33 @@ a:hover {
 }
 
 @media (max-width: 720px) {
+    /* Su schermo stretto le due foto si sovrapporrebbero: ne resta una, in cover. */
+    .header-hero {
+        padding: 4.5rem 1.5rem;
+    }
+
+    .header-hero::before {
+        background-image: url("images/talk-1.jpg");
+        background-position: center;
+        background-size: cover;
+        opacity: 0.22;
+    }
+
+    .header-hero::after {
+        background-image:
+            linear-gradient(180deg, rgba(15,17,21,0.55) 0%, rgba(15,17,21,0.5) 45%, rgba(15,17,21,0.8) 100%);
+    }
+
+    .about-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .about-photo {
+        max-width: 260px;
+        margin: 0 auto;
+    }
+
     .radar-figure {
         grid-template-columns: 1fr;
         grid-template-areas:

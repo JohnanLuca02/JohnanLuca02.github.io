@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Johnan Luca | Online Portfolio</title>
 
-    <link rel="stylesheet" href="style.css?v=6">
+    <link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
 
-    <header>
+    <header class="header-hero">
         <h1>Johnan Luca</h1>
         <p>MSc. Robotics @ EPFL</p>
     </header>
@@ -18,7 +18,18 @@
         
         <section id="about">
             <h2>About</h2>
-            <p>Passionate about general robotics, MedTech, and exploring applications in extreme environments. I spends my time developing mechatronic/robotic projects, building custom embedded systems. </p>
+            <div class="about-layout">
+                <div class="about-text">
+                    <p>Passionate about general robotics, MedTech, and exploring applications in extreme environments. I spend my time developing mechatronic and robotic projects, and building the custom embedded systems that make them move.</p>
+                    <p>Most of that work happens inside BARK, the robotics group of the EPFL AI Team. I moved from DINGO's electronic sub-team to leading the project, then led the sub-team behind PUPPER &mdash; where I designed the custom robotic arm from scratch &mdash; and I now lead BYTE as project leader and hardware designer, responsible for its pre-charge circuit and power distribution board.</p>
+                    <p>What keeps pulling me back is the layer where electronics meet software &mdash; high-current distribution, motor and servo driving, and the firmware that has to hold it all together. It is also the layer I still have the most to learn about. On my own I tinker with the same problems at a much smaller scale, from a teleoperated five-axis arm to a smart lamp.</p>
+                </div>
+                <figure class="about-photo">
+                    <img src="images/profile.jpg" width="483" height="644" loading="lazy"
+                         alt="Johnan Luca assembling the PUPPER quadruped at the EPFL AI Team stand">
+                    <figcaption>Assembling PUPPER at the EPFL AI Team</figcaption>
+                </figure>
+            </div>
         </section>
 
         <section id="skills">
