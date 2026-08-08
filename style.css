@@ -460,16 +460,15 @@ a:hover {
     stroke-linejoin: round;
 }
 
-/* Anello del colore della superficie: tiene leggibili i punti dove le due serie si sovrappongono */
+/* Pallini a tinta piena, senza contorno */
 .radar-dot {
-    stroke: var(--bg-card);
-    stroke-width: 2;
+    stroke: none;
 }
 
 .radar-contribution { fill: var(--viz-s1); stroke: var(--viz-s1); }
 .radar-difficulty   { fill: var(--viz-s2); stroke: var(--viz-s2); }
-.radar-dot.radar-contribution { fill: var(--viz-s1); stroke: var(--bg-card); }
-.radar-dot.radar-difficulty   { fill: var(--viz-s2); stroke: var(--bg-card); }
+.radar-dot.radar-contribution { fill: var(--viz-s1); stroke: none; }
+.radar-dot.radar-difficulty   { fill: var(--viz-s2); stroke: none; }
 
 /* Vista tabellare: i valori esatti, utile anche a screen reader e in stampa */
 .radar-table {
