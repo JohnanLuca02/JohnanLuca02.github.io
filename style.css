@@ -149,10 +149,11 @@ p {
     /* Il gradiente sopra rappresenta l'intera scala 0-10 (--value: 10 => 100%).
        Scalandolo in base a --value, la porzione visibile (larga quanto --value)
        mostra sempre il colore assoluto corretto per quel punto della scala. */
-    background-size: calc(1000% / var(--value)) 100%;
+    background-size: calc(1000% / var(--value, 10)) 100%;
     background-position: left center;
 
     width: 0%; /* PARTE SEMPRE DA ZERO */
+    max-width: 100%;
 
     /* Un'animazione molto fluida con un leggero ritardo per far prima aprire la card */
     transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -166,9 +167,11 @@ p {
     margin-top: 8px;
 }
 
-/* 2. La barra scatta da 0 fino al valore --value (0-10) impostato nell'HTML! */
+/* 2. La barra scatta da 0 fino al valore --value (0-10) impostato nell'HTML!
+   Il fallback a 0 e' importante: se --value mancasse, senza fallback la width
+   tornerebbe al valore iniziale "auto" e la barra apparirebbe piena al 100%. */
 .skill-tag:hover .skill-level-fill {
-    width: calc(var(--value) * 10%);
+    width: calc(var(--value, 0) * 10%);
 }
 
 /* 3. Il titolo principale si rimpicciolisce appena per fare spazio */
