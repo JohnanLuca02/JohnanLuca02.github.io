@@ -93,7 +93,7 @@ p {
 /* About: testo a sinistra, foto verticale a destra */
 .about-layout {
 	display: grid;
-	grid-template-columns: 1fr minmax(190px, 240px);
+	grid-template-columns: 1fr minmax(190px, 300px);
 	gap: 2.5rem;
 	align-items: center;
 }
