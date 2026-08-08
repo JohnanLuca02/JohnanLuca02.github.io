@@ -133,8 +133,24 @@ p {
 /* RIEMPIMENTO DELLA BARRA */
 .skill-level-fill {
     height: 100%;
-    background: linear-gradient(to right, var(--accent-cyan), var(--accent-blue));
     border-radius: 4px;
+
+    /* Gradiente fisso rosso (0-3) -> giallo (3-7) -> verde (7-10) sull'intera scala 0-10.
+       Il gradiente non si "muove": la barra si limita a rivelarne una porzione. */
+    background-image: linear-gradient(to right,
+        #ef4444 0%,
+        #ef4444 25%,
+        #facc15 35%,
+        #facc15 65%,
+        #22c55e 75%,
+        #22c55e 100%
+    );
+    background-repeat: no-repeat;
+    /* Il gradiente sopra rappresenta l'intera scala 0-10 (--value: 10 => 100%).
+       Scalandolo in base a --value, la porzione visibile (larga quanto --value)
+       mostra sempre il colore assoluto corretto per quel punto della scala. */
+    background-size: calc(1000% / var(--value)) 100%;
+    background-position: left center;
 
     width: 0%; /* PARTE SEMPRE DA ZERO */
 
@@ -143,29 +159,16 @@ p {
     transition-delay: 0.1s;
 }
 
-/* Colore della barra in base al livello: rosso (0-3), giallo (3-7), verde (7-10) */
-.skill-tag.level-red .skill-level-fill {
-    background: linear-gradient(to right, #f87171, #dc2626);
-}
-
-.skill-tag.level-yellow .skill-level-fill {
-    background: linear-gradient(to right, #fde047, #ca8a04);
-}
-
-.skill-tag.level-green .skill-level-fill {
-    background: linear-gradient(to right, #4ade80, #16a34a);
-}
-
 /* 1. Il contenitore si apre e diventa visibile */
 .skill-tag:hover .skill-reveal {
-    max-height: 40px; 
+    max-height: 40px;
     opacity: 1;
     margin-top: 8px;
 }
 
-/* 2. La barra scatta da 0 fino al valore della variabile --level impostata nell'HTML! */
+/* 2. La barra scatta da 0 fino al valore --value (0-10) impostato nell'HTML! */
 .skill-tag:hover .skill-level-fill {
-    width: var(--level);
+    width: calc(var(--value) * 10%);
 }
 
 /* 3. Il titolo principale si rimpicciolisce appena per fare spazio */
