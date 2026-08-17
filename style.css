@@ -419,6 +419,20 @@ p {
 	margin-bottom: 12px;
 }
 
+/* Il link all'ente resta nel tono della riga: sottolineato invece che colorato,
+   così non compete con la data, che è già in ciano. */
+.timeline-org a {
+	color: inherit;
+	text-decoration: underline;
+	text-decoration-color: rgba(0, 210, 255, 0.45);
+	text-underline-offset: 3px;
+}
+
+.timeline-org a:hover {
+	color: var(--accent-cyan);
+	text-decoration-color: var(--accent-cyan);
+}
+
 .timeline-body p {
 	margin: 0 0 14px 0;
 	max-width: 68ch;
@@ -479,6 +493,9 @@ a:hover {
     gap: 20px;
     margin-top: 2rem;
     margin-bottom: 3rem;
+    /* Se una cella è più alta delle altre (vedi --portrait), le vicine si
+       centrano sulla riga invece di restare appese in alto. */
+    align-items: center;
 }
 
 /* Stile uniforme per foto e video nella galleria */
@@ -494,6 +511,14 @@ a:hover {
 
 .gallery-item:hover {
     transform: scale(1.02);
+}
+
+/* Scatti verticali: a 250px in cover se ne vedrebbe solo una fascia orizzontale.
+   Qui la cella è più alta e l'immagine sta dentro intera (contain), col fondo
+   della card a fare da cornice ai lati. */
+.gallery-item--portrait {
+    height: 460px;
+    object-fit: contain;
 }
 
 .project-details-text {
