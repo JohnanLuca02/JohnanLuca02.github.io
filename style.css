@@ -59,6 +59,13 @@ header p {
 	background-size: auto 100%, auto 100%;
 	filter: grayscale(30%);
 	opacity: 0.28;
+	/* Le foto si dissolvono verso il centro. Prima ci pensava solo lo scrim di
+	   ::after, ma quello e' un velo su tutto l'header: nel punto in cui la foto
+	   finisce restava un taglio verticale netto, e la parte piu' scura del velo
+	   cadeva nel vuoto in mezzo, dove non c'e' nessuna foto da sfumare.
+	   Con la maschera e' la foto stessa a sparire, a qualsiasi larghezza. */
+	-webkit-mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,0.65) 20%, rgba(0,0,0,0) 40%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.65) 80%, #000 100%);
+	mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,0.65) 20%, rgba(0,0,0,0) 40%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.65) 80%, #000 100%);
 }
 
 .header-hero::after {
@@ -364,86 +371,6 @@ p {
     border-top: 1px solid rgba(255, 255, 255, 0.05); /* Sottile linea di separazione (opzionale) */
 }
 
-/* Experience: timeline verticale.
-   Il "binario" è il border-left di .timeline-body, e i pallini sono uno
-   pseudo-elemento centrato su quel bordo. Nessun elemento decorativo nell'HTML. */
-.timeline-item {
-	display: grid;
-	grid-template-columns: 150px 1fr;
-	gap: 0 24px;
-}
-
-.timeline-period {
-	color: var(--accent-cyan);
-	font-size: 0.9rem;
-	font-weight: 600;
-	line-height: 1.5;
-	padding-top: 3px;
-	text-align: right;
-}
-
-.timeline-body {
-	position: relative;
-	border-left: 2px solid rgba(0, 210, 255, 0.18);
-	padding: 0 0 2.5rem 28px;
-}
-
-/* L'ultima voce non deve prolungare il binario nel vuoto sotto di sé. */
-.timeline-item:last-child .timeline-body {
-	border-left-color: transparent;
-	padding-bottom: 0;
-}
-
-/* Pallino centrato sul binario: metà del diametro (6px) più metà bordo (1px). */
-.timeline-body::before {
-	content: "";
-	position: absolute;
-	left: -7px;
-	top: 6px;
-	width: 12px;
-	height: 12px;
-	border-radius: 50%;
-	background-color: var(--accent-cyan);
-	box-shadow: 0 0 0 4px var(--bg-dark);
-}
-
-.timeline-body h3 {
-	margin: 0 0 4px 0;
-	font-size: 1.25rem;
-	color: #fff;
-}
-
-.timeline-org {
-	color: var(--text-muted);
-	font-size: 0.95rem;
-	margin-bottom: 12px;
-}
-
-/* Il link all'ente resta nel tono della riga: sottolineato invece che colorato,
-   così non compete con la data, che è già in ciano. */
-.timeline-org a {
-	color: inherit;
-	text-decoration: underline;
-	text-decoration-color: rgba(0, 210, 255, 0.45);
-	text-underline-offset: 3px;
-}
-
-.timeline-org a:hover {
-	color: var(--accent-cyan);
-	text-decoration-color: var(--accent-cyan);
-}
-
-.timeline-body p {
-	margin: 0 0 14px 0;
-	max-width: 68ch;
-}
-
-.timeline-tags {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 8px;
-}
-
 /* Contact Section */
 .contact-section {
 	margin-top: 5rem;
@@ -701,11 +628,15 @@ a:hover {
         padding: 4.5rem 1.5rem;
     }
 
+    /* Qui la foto e' una sola in cover: la maschera del desktop le scaverebbe
+       una striscia trasparente proprio in mezzo. */
     .header-hero::before {
         background-image: url("images/talk-1.jpg");
         background-position: center;
         background-size: cover;
         opacity: 0.22;
+        -webkit-mask-image: none;
+        mask-image: none;
     }
 
     .header-hero::after {
@@ -721,36 +652,6 @@ a:hover {
     .about-photo {
         max-width: 260px;
         margin: 0 auto;
-    }
-
-    /* 150px per le date lascerebbero al testo meno di 200px: la timeline passa
-       a colonna singola e il binario prosegue lungo la riga della data. */
-    .timeline-item {
-        grid-template-columns: 1fr;
-    }
-
-    .timeline-period {
-        position: relative;
-        text-align: left;
-        padding: 0 0 2px 28px;
-        border-left: 2px solid rgba(0, 210, 255, 0.18);
-    }
-
-    .timeline-period::before {
-        content: "";
-        position: absolute;
-        left: -7px;
-        top: 6px;
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background-color: var(--accent-cyan);
-        box-shadow: 0 0 0 4px var(--bg-dark);
-    }
-
-    /* Il pallino è già sulla riga della data: qui sarebbe un doppione. */
-    .timeline-body::before {
-        display: none;
     }
 
     .radar-figure {
