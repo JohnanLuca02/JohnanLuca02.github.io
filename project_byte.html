@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BYTE Project Details | Johnan Luca</title>
-    <link rel="stylesheet" href="style.css?v=12">
+    <link rel="stylesheet" href="style.css?v=13">
 </head>
 <body>
 
@@ -79,13 +79,18 @@
 
                 <img src="images/render_GBL.png" alt="Good Boy Limiter pre-charge board, layout view" class="gallery-item">
 
-                <!-- TODO: replace with a photo of the fully assembled BYTE robot once available -->
-                <img src="images/placeholder-image.svg" alt="Fully assembled BYTE robot" class="gallery-item">
+                <img src="images/byte_assembled.jpg" width="555" height="1200" loading="lazy"
+                     alt="The assembled BYTE quadruped standing on the lab floor, its frame and wiring visible"
+                     class="gallery-item gallery-item--portrait">
 
-                <video controls class="gallery-item">
-                    <source src="videos/byte_stress_test.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+                <figure class="gallery-figure">
+                    <!-- TODO: didascalia dedotta dal nome del file, controlla che descriva il clip. -->
+                    <video class="gallery-item gallery-item--portrait" controls preload="metadata" playsinline>
+                        <source src="videos/byte_stress_test.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption class="gallery-caption">Stress test of the power distribution board under load.</figcaption>
+                </figure>
 
             </div>
         </section>

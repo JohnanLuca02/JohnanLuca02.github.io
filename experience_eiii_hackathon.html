@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Robotics Retreat Hackathon | Johnan Luca</title>
-    <link rel="stylesheet" href="style.css?v=12">
+    <link rel="stylesheet" href="style.css?v=13">
 </head>
 <body>
 
@@ -34,15 +34,22 @@
             <h2>Media Gallery</h2>
             <div class="gallery-grid">
 
-                <!-- TODO: sostituire con le foto dell'hackathon.
-                     Per gli scatti verticali aggiungi la classe gallery-item--portrait
-                     accanto a gallery-item, cosi' si vedono per intero invece che tagliati. -->
-                <img src="images/placeholder-image.svg" alt="The Piano Maestro Robot during assembly" class="gallery-item">
+                <!-- Inquadratura intera dello scatto usato, ritagliato, per la card in home. -->
+                <img src="images/robomaestro_piano.jpg" width="900" height="1200" loading="lazy"
+                     alt="The Piano Maestro Robot held in its test rig, one arm reaching for the keys of an upright piano"
+                     class="gallery-item gallery-item--portrait">
 
-                <img src="images/placeholder-image.svg" alt="The team at work during the retreat" class="gallery-item">
+                <img src="images/robomaestro_full.jpg" width="675" height="1200" loading="lazy"
+                     alt="The Piano Maestro Robot standing at full height, the EIII logo on its chest"
+                     class="gallery-item gallery-item--portrait">
 
-                <!-- TODO: sostituire con un tag <video> che punta a videos/eiii_piano_demo.mp4 -->
-                <img src="images/placeholder-video.svg" alt="The Piano Maestro Robot playing" class="gallery-item">
+                <figure class="gallery-figure">
+                    <video class="gallery-item gallery-item--portrait" controls preload="metadata" playsinline>
+                        <source src="videos/robomaestro_interstellar.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption class="gallery-caption">The Piano Maestro Robot playing the main theme from Interstellar.</figcaption>
+                </figure>
 
             </div>
         </section>

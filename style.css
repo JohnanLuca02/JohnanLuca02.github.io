@@ -448,6 +448,21 @@ a:hover {
     object-fit: contain;
 }
 
+/* Media con didascalia: la <figure> prende il posto dell'immagine come cella
+   della griglia, il media resta un .gallery-item e il testo gli sta sotto. */
+.gallery-figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.gallery-caption {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: var(--text-muted);
+}
+
 .project-details-text {
     font-size: 1.1rem;
     color: var(--text-muted);

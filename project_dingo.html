@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DINGO Project Details | Johnan Luca</title>
-    <link rel="stylesheet" href="style.css?v=12">
+    <link rel="stylesheet" href="style.css?v=13">
 </head>
 <body>
 
@@ -79,18 +79,28 @@
                 <!-- TODO: replace with images/dingo-precharge-circuit.jpg once available -->
                 <img src="images/placeholder-image.svg" alt="Pre-Charge Circuit Schematic" class="gallery-item">
 
-                <!-- TODO: replace with images/dingo-assembled.jpg once available -->
-                <img src="images/placeholder-image.svg" alt="Fully assembled DINGO robot" class="gallery-item">
+                <!-- Vecchia index card: DINGO sul banco, telaio aperto sull'elettronica. -->
+                <img src="images/dingo_assembled.jpg" width="1200" height="900" loading="lazy"
+                     alt="The assembled DINGO robot on a workbench, its open chassis showing the wiring and boards"
+                     class="gallery-item">
 
-                <video controls class="gallery-item">
-                    <source src="videos/dingo_move.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+                <figure class="gallery-figure">
+                    <!-- TODO: didascalia dedotta dal nome del file, controlla che descriva il clip. -->
+                    <video class="gallery-item gallery-item--portrait" controls preload="metadata" playsinline>
+                        <source src="videos/dingo_move.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption class="gallery-caption">DINGO moving under its own control after the electronics were repaired.</figcaption>
+                </figure>
 
-                <video controls class="gallery-item">
-                    <source src="videos/dingo_troubleshoot.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+                <figure class="gallery-figure">
+                    <!-- TODO: didascalia dedotta dal nome del file, controlla che descriva il clip. -->
+                    <video class="gallery-item gallery-item--portrait" controls preload="metadata" playsinline>
+                        <source src="videos/dingo_troubleshoot.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption class="gallery-caption">Troubleshooting the electronics inherited with the robot.</figcaption>
+                </figure>
 
             </div>
         </section>

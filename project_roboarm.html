@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ROBOARM Project Details | Johnan Luca</title>
-    <link rel="stylesheet" href="style.css?v=12">
+    <link rel="stylesheet" href="style.css?v=13">
 </head>
 <body>
 
@@ -74,8 +74,13 @@
                 <!-- TODO: replace with a photo of the fully assembled arm once available -->
                 <img src="images/placeholder-image.svg" alt="Fully assembled robotic arm" class="gallery-item">
 
-                <!-- TODO: replace with a <video> tag pointing to a teleoperation demo clip once available -->
-                <img src="images/placeholder-video.svg" alt="Teleoperation demo video" class="gallery-item">
+                <figure class="gallery-figure">
+                    <video class="gallery-item gallery-item--portrait" controls preload="metadata" playsinline>
+                        <source src="videos/roboarm_demo.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption class="gallery-caption">The five-axis arm driven over Bluetooth from the teleoperation controller.</figcaption>
+                </figure>
 
             </div>
         </section>
