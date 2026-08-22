@@ -420,9 +420,12 @@ a:hover {
     gap: 20px;
     margin-top: 2rem;
     margin-bottom: 3rem;
-    /* Se una cella è più alta delle altre (vedi --portrait), le vicine si
-       centrano sulla riga invece di restare appese in alto. */
-    align-items: center;
+    /* Tutti i media partono dalla stessa riga in alto. Con align-items: center
+       una cella con didascalia (vedi .gallery-figure) è più alta delle altre di
+       tutta l'altezza del testo, e la griglia ricentrava le vicine spingendole
+       in giù: il video finiva ~15px più in alto delle foto accanto. Il testo
+       cresce verso il basso, quindi da 'start' non sposta nulla. */
+    align-items: start;
 }
 
 /* Stile uniforme per foto e video nella galleria */
