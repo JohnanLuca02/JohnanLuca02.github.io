@@ -1,709 +1,199 @@
-
+/* Tema "solder mask": verde PCB, testo color serigrafia, pad dorati. */
 :root {
-	--bg-dark: #0f1115;
-	--bg-card: #1a1d24;
-	--accent-cyan: #00d2ff;
-	--accent-blue: #3a7bd5;
-	--text-main: #e2e8f0;
-	--text-muted: #94a3b8;
+	--mask: #0C3B2E;
+	--mask-deep: #082A21;
+	--trace: #1A5A45;
+	--silk: #F1EFE4;
+	--gold: #D6A545;
+	--tin: #AEB8B6;
+	--chamfer: polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
 }
 
+* { box-sizing: border-box; }
+
 body {
-	font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 	margin: 0;
-	padding: 0;
-	background-color: var(--bg-dark);
-	color: var(--text-main);
+	background: var(--mask);
+	color: var(--silk);
+	font-family: 'IBM Plex Sans', -apple-system, "Segoe UI", sans-serif;
+	font-size: 17px;
 	line-height: 1.6;
 }
 
-header {
-	background: linear-gradient(135deg, rgba(15,17,21,1) 0%, rgba(26,29,36,1) 100%);
-	border-bottom: 1px solid rgba(0, 210, 255, 0.2);
-	padding: 5rem 2rem;
-	text-align: center;
-}
+a { color: var(--gold); }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+h1, h2, h3 { font-family: 'Chakra Petch', sans-serif; line-height: 1.05; margin: 0; }
+h2 { font-size: 2rem; font-weight: 500; margin-bottom: 1.5rem; }
+img, video { max-width: 100%; }
 
-header h1 {
-	margin: 0;
-	font-size: 3rem;
-	background: linear-gradient(to right, var(--accent-cyan), var(--accent-blue));
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	letter-spacing: -1px;
-}
+.board { position: relative; max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+.board section { padding-top: 3rem; }
 
-header p {
-	font-size: 1.2rem;
-	color: var(--text-muted);
-	margin-top: 10px;
-}
-
-/* Header della home: due scatti dai talk come texture dietro al titolo.
-   ::before porta le foto, ::after lo scrim che tiene leggibile il testo. */
-.header-hero {
-	position: relative;
-	isolation: isolate;
-	overflow: hidden;
-	padding: 6.5rem 2rem;
-}
-
-.header-hero::before {
+/* Piste e vias solo nei margini laterali, nel colore che ha il rame sotto la
+   solder mask. Sotto i 1400px non c'e' margine: spariscono e la pagina resta pulita. */
+.board::before, .board::after {
 	content: "";
 	position: absolute;
-	inset: 0;
-	z-index: -2;
-	background-image: url("images/talk-1.jpg"), url("images/talk-2.jpg");
-	background-repeat: no-repeat, no-repeat;
-	background-position: left center, right center;
-	background-size: auto 100%, auto 100%;
-	filter: grayscale(30%);
-	opacity: 0.28;
-	/* Le foto si dissolvono verso il centro. Prima ci pensava solo lo scrim di
-	   ::after, ma quello e' un velo su tutto l'header: nel punto in cui la foto
-	   finisce restava un taglio verticale netto, e la parte piu' scura del velo
-	   cadeva nel vuoto in mezzo, dove non c'e' nessuna foto da sfumare.
-	   Con la maschera e' la foto stessa a sparire, a qualsiasi larghezza. */
-	-webkit-mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,0.65) 20%, rgba(0,0,0,0) 40%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.65) 80%, #000 100%);
-	mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,0.65) 20%, rgba(0,0,0,0) 40%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.65) 80%, #000 100%);
+	top: 0;
+	bottom: 0;
+	left: -130px;
+	width: 110px;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='640'%3E%3Cg fill='none' stroke='%231A5A45' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 0V120L45 150V300L15 330V640'/%3E%3Cpath d='M35 0V100L65 130V320L35 350V640'/%3E%3Cpath d='M90 0V420L65 445V520L90 545V640'/%3E%3Cpath d='M90 60L102 72V100'/%3E%3C/g%3E%3Cg fill='%23082A21' stroke='%23D6A545' stroke-opacity='.55' stroke-width='3'%3E%3Ccircle cx='102' cy='102' r='5'/%3E%3Ccircle cx='58' cy='585' r='5'/%3E%3Ccircle cx='58' cy='607' r='5'/%3E%3C/g%3E%3C/svg%3E") repeat-y;
+}
+.board::after { left: auto; right: -130px; transform: scaleX(-1); }
+@media (max-width: 1400px) { .board::before, .board::after { display: none; } }
+
+/* ---------- Hero della home ---------- */
+.hero { position: relative; isolation: isolate; overflow: hidden; padding: 3.5rem 1.5rem; background: var(--mask-deep); }
+.hero-inner { max-width: 760px; margin: 0 auto; display: grid; grid-template-columns: 190px 1fr; gap: 2.25rem; align-items: center; }
+.hero-inner > img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; clip-path: var(--chamfer); }
+.hero h1 { font-size: 2.75rem; font-weight: 700; }
+.hero-inner p { margin: .5rem 0 1.1rem; font-size: 1.1rem; line-height: 1.45; }
+.facts { display: grid; grid-template-columns: auto 1fr; gap: .3rem 1rem; margin: 0 0 1.25rem; font-size: .95rem; }
+.facts dt { color: var(--gold); font-family: 'Chakra Petch', sans-serif; }
+.facts dd { margin: 0; }
+.reach { display: flex; flex-wrap: wrap; gap: .75rem; }
+.reach a { padding: .35rem .9rem; border: 1px solid var(--gold); text-decoration: none; font-family: 'Chakra Petch', sans-serif; }
+.reach a:first-child { background: var(--gold); color: var(--mask-deep); }
+
+/* Le due foto dei talk. Su schermi larghi fanno da sfondo ai lati dell'hero,
+   tinte dal verde e sfumate verso il centro; su schermi stretti non c'e' spazio
+   ai lati, quindi diventano due foto normali sotto il testo. */
+.talks { display: contents; }
+.talk { margin: 0; font-size: .8rem; line-height: 1.35; }
+.talk b { display: block; font-family: 'Chakra Petch', sans-serif; color: var(--gold); }
+@media (min-width: 1101px) {
+	.talk img { position: absolute; top: 0; z-index: -1; height: 100%; width: auto; max-width: none; filter: grayscale(1) contrast(1.1); mix-blend-mode: luminosity; opacity: .6; }
+	.talk-left img { left: 0; -webkit-mask-image: linear-gradient(90deg, #000 30%, transparent 68%); mask-image: linear-gradient(90deg, #000 30%, transparent 68%); }
+	.talk-right img { right: 0; -webkit-mask-image: linear-gradient(270deg, #000 30%, transparent 68%); mask-image: linear-gradient(270deg, #000 30%, transparent 68%); }
+	.talk figcaption { position: absolute; bottom: .75rem; max-width: 17rem; text-shadow: 0 0 6px var(--mask-deep), 0 0 2px var(--mask-deep); }
+	.talk-left figcaption { left: 1.5rem; }
+	.talk-right figcaption { right: 1.5rem; text-align: right; }
+}
+@media (max-width: 1100px) {
+	.talks { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 760px; margin: 2rem auto 0; }
+	.talk img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; margin-bottom: .5rem; }
 }
 
-.header-hero::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	z-index: -1;
-	background-image:
-		linear-gradient(90deg, rgba(15,17,21,0) 0%, rgba(15,17,21,0.55) 30%, rgba(15,17,21,0.82) 50%, rgba(15,17,21,0.55) 70%, rgba(15,17,21,0) 100%),
-		linear-gradient(180deg, rgba(15,17,21,0.5) 0%, rgba(15,17,21,0) 35%, rgba(15,17,21,0) 62%, rgba(15,17,21,0.75) 100%);
-}
+/* ---------- Testata delle pagine di dettaglio ---------- */
+.page-head { padding: 2rem 1.5rem 2.5rem; background: var(--mask-deep); }
+.page-head > div { max-width: 1072px; margin: 0 auto; }
+.page-head h1 { margin: 1.25rem 0 .5rem; font-size: clamp(2.2rem, 5vw, 3.25rem); font-weight: 700; }
+.page-head p { margin: 0 0 .75rem; max-width: 60ch; font-size: 1.1rem; }
 
-.container {
-	max-width: 1200px;
-	margin: 0 auto;
-	padding: 3rem 2rem;
-}
+/* ---------- Blocchi condivisi ---------- */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+.prose p { margin: 0 0 1rem; max-width: 62ch; }
+.note { margin: -1rem 0 1.5rem; color: var(--tin); font-size: .95rem; }
+.role { margin: .3rem 0 .1rem; color: var(--gold); font-size: .9rem; }
+.period { margin: 0 0 .8rem; color: var(--tin); font-size: .85rem; }
 
-h2 {
-	font-size: 2rem;
-	color: #fff;
-	display: inline-block;
-	border-bottom: 3px solid var(--accent-blue);
-	padding-bottom: 5px;
-	margin-bottom: 1.5rem;
-}
+.tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+.tags li { padding: .1rem .5rem; border: 1px solid var(--tin); font-size: .8rem; color: var(--tin); }
+/* Il dominio tecnico del progetto: sempre la prima etichetta, in oro pieno. */
+.tags li.domain { background: var(--gold); border-color: var(--gold); color: var(--mask-deep); }
 
-p {
-	font-size: 1.05rem;
-}
-
-/* About: testo a sinistra, foto verticale a destra */
-.about-layout {
-	display: grid;
-	grid-template-columns: 1fr minmax(190px, 300px);
-	gap: 2.5rem;
-	align-items: center;
-}
-
-/* La colonna testo è larga ~850px: senza cap le righe superano i 110 caratteri. */
-.about-text p {
-	max-width: 62ch;
-}
-
-.about-text p:first-child {
-	margin-top: 0;
-}
-
-.about-photo {
-	margin: 0;
-}
-
-.about-photo img {
+/* Barra a pad, da 0 a 10: il valore arriva da --v sull'elemento o su un antenato. */
+.pads {
 	display: block;
-	width: 100%;
-	height: auto;
-	border-radius: 12px;
-	border: 1px solid rgba(255, 255, 255, 0.08);
+	height: 10px;
+	background: linear-gradient(90deg, var(--on, var(--gold)) calc(var(--v) * 10%), var(--off, var(--trace)) 0);
+	-webkit-mask: repeating-linear-gradient(90deg, #000 0 calc(10% - 4px), transparent 0 10%);
+	mask: repeating-linear-gradient(90deg, #000 0 calc(10% - 4px), transparent 0 10%);
 }
 
-.about-photo figcaption {
-	margin-top: 10px;
-	font-size: 0.8rem;
-	line-height: 1.4;
-	color: var(--text-muted);
-	text-align: center;
+/* ---------- Skill ---------- */
+.skill-groups { display: grid; grid-template-columns: auto 1fr; gap: .75rem 1.25rem; align-items: baseline; }
+.skill-groups h3 { font-size: 1rem; font-weight: 500; color: var(--gold); }
+.skills { position: relative; list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+.skills li { padding: .3rem .75rem; background: var(--mask-deep); border: 1px solid var(--trace); cursor: default; }
+.skills li:hover, .skills li:focus { border-color: var(--gold); }
+/* Il livello resta nascosto finche' non si passa sopra (o si tocca / si arriva
+   col tab): cosi' la lista resta compatta anche quando le skill aumentano. */
+.level { position: absolute; left: 0; top: calc(100% + 4px); z-index: 2; width: 13rem; padding: .6rem .75rem; background: var(--silk); color: var(--mask-deep); font-size: .85rem; visibility: hidden; opacity: 0; transition: opacity .15s; }
+.level::before { content: "Confidence level"; display: block; font-family: 'Chakra Petch', sans-serif; font-weight: 700; }
+.level .pads { margin-top: .4rem; --on: var(--mask); --off: rgba(8, 42, 33, .18); }
+.skills li:hover .level, .skills li:focus .level { visibility: visible; opacity: 1; }
+.hint { margin: 1rem 0 0; font-size: .85rem; color: var(--tin); }
+/* Con spazio a destra il riquadro si apre sotto la skill; altrimenti sotto il
+   gruppo, per non uscire dallo schermo. */
+@media (min-width: 1301px) {
+	.skills li { position: relative; }
+	.level { left: -1px; }
 }
 
-/* Skills principali */
-.skills-grid {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 12px;
-	margin-bottom: 3rem;
-	justify-content: center;
-}
+/* ---------- Card dei progetti ---------- */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.card { display: block; background: var(--mask-deep); color: inherit; text-decoration: none; clip-path: var(--chamfer); }
+.card img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.card > div { padding: 1.25rem 1.25rem 1.75rem; }
+.card h3 { font-size: 1.6rem; font-weight: 700; }
+.card p { margin: 0; font-size: .95rem; }
+.card:hover h3 { text-decoration: underline; text-decoration-color: var(--gold); }
 
-/* --- SKILL TAGS (Con Progressive Disclosure) --- */
-
-.skill-tag {
-    background: rgba(58, 123, 213, 0.1);
-    color: var(--accent-cyan);
-    border: 1px solid rgba(0, 210, 255, 0.3);
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-width: 140px; 
-    
-    transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.skill-tag:hover {
-    transform: translateY(-4px); 
-    background-color: rgba(0, 210, 255, 0.15); 
-    border-color: var(--accent-cyan);
-    box-shadow: 0 4px 12px rgba(0, 210, 255, 0.1);
-}
-
-.skill-name {
-    display: block;
-    transition: transform 0.3s ease;
-}
-
-/* CONTENITORE NASCOSTO (Testo + Barra) */
-.skill-reveal {
-    width: 100%;
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: all 0.3s ease;
-}
-
-/* TESTO DEL LIVELLO (Es. "Advanced") */
-.skill-text {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 5px;
-}
-
-/* TRACCIATO DELLA BARRA */
-.skill-level-track {
-    width: 100%;
-    height: 4px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-}
-
-/* RIEMPIMENTO DELLA BARRA */
-.skill-level-fill {
-    height: 100%;
-    border-radius: 4px;
-
-    /* Gradiente fisso rosso (0-3) -> giallo (3-7) -> verde (7-10) sull'intera scala 0-10.
-       Il gradiente non si "muove": la barra si limita a rivelarne una porzione. */
-    background-image: linear-gradient(to right,
-        #ef4444 0%,
-        #ef4444 20%,
-        #facc15 30%,
-        #facc15 55%,
-        #22c55e 75%,
-        #22c55e 100%
-    );
-    background-repeat: no-repeat;
-    /* Il gradiente sopra rappresenta l'intera scala 0-10 (--value: 10 => 100%).
-       Scalandolo in base a --value, la porzione visibile (larga quanto --value)
-       mostra sempre il colore assoluto corretto per quel punto della scala. */
-    background-size: calc(1000% / var(--value, 10)) 100%;
-    background-position: left center;
-
-    width: 0%; /* PARTE SEMPRE DA ZERO */
-    max-width: 100%;
-
-    /* Un'animazione molto fluida con un leggero ritardo per far prima aprire la card */
-    transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-    transition-delay: 0.1s;
-}
-
-/* 1. Il contenitore si apre e diventa visibile */
-.skill-tag:hover .skill-reveal {
-    max-height: 40px;
-    opacity: 1;
-    margin-top: 8px;
-}
-
-/* 2. La barra scatta da 0 fino al valore --value (0-10) impostato nell'HTML!
-   Il fallback a 0 e' importante: se --value mancasse, senza fallback la width
-   tornerebbe al valore iniziale "auto" e la barra apparirebbe piena al 100%. */
-.skill-tag:hover .skill-level-fill {
-    width: calc(var(--value, 0) * 10%);
-}
-
-/* 3. Il titolo principale si rimpicciolisce appena per fare spazio */
-.skill-tag:hover .skill-name {
-    transform: scale(0.95);
-}
-
-/* Su touch il :hover dura solo finché il dito resta premuto, quindi la barra
-   sarebbe raggiungibile solo tenendo premuto. Su questi dispositivi togliamo del
-   tutto la progressive disclosure: livello e barra restano sempre visibili. */
-@media (hover: none) {
-    .skill-reveal {
-        max-height: 40px;
-        opacity: 1;
-        margin-top: 8px;
-    }
-
-    .skill-level-fill {
-        width: calc(var(--value, 0) * 10%);
-    }
-
-    .skill-tag {
-        cursor: default;
-    }
-
-    /* Niente sollevamento né rimpicciolimento al tocco: farebbero solo
-       sobbalzare la griglia, dato che non c'è più nulla da rivelare. */
-    .skill-tag:hover {
-        transform: none;
-        box-shadow: none;
-    }
-
-    .skill-tag:hover .skill-name {
-        transform: none;
-    }
-}
-
-/* Project Cards */
-.projects-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(270px, 380px));
-	gap: 30px;
-	justify-content: flex-start;
-}
-
-.project-card {
-	background-color: var(--bg-card);
-	border: 1px solid rgba(255, 255, 255, 0.05);
-	border-radius: 12px;
-	overflow: hidden;
-	transition: all 0.3s ease;
-	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
-	width: 100%;
-}
-
-.project-card:hover {
-	transform: translateY(-5px);
-	border-color: rgba(0, 210, 255, 0.4);
-	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-	cursor: pointer;
-}
-
-.project-image {
-	width: 100%;
-	height: 220px;
-	background-color: #222630;
-	overflow: hidden;
-	position: relative;
-}
-
-/* Come le immagini si adatteranno al riquadro */
-.project-image img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	transition: transform 0.5s ease;
-}
-
-.project-card:hover .project-image img {
-	transform: scale(1.05);
-}
-
-.project-content {
-	padding: 25px;
-	flex-grow: 1;
-	display: flex;
-	flex-direction: column;
-}
-
-.project-content h3 {
-	margin: 0 0 10px 0;
-	font-size: 1.4rem;
-	color: #fff;
-}
-
-.project-role {
-	font-size: 0.9rem;
-	color: var(--accent-cyan);
-	margin-bottom: 15px;
-	font-weight: 600;
-}
-
-/* Rende la card cliccabile senza rovinare il testo */
-.project-link {
-    text-decoration: none;
-    color: inherit;
-    display: flex; 
-	flex-direction: column;
-	height: 100%;
-}
-
-/* Contenitore per le skill dentro le card */
-.project-skills-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: auto; /* Distanza dal testo della descrizione */
-    padding-top: 15px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Sottile linea di separazione (opzionale) */
-}
-
-/* Contact Section */
-.contact-section {
-	margin-top: 5rem;
-	padding: 3rem;
-	background: var(--bg-card);
-	border-radius: 12px;
-	text-align: center;
-	border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-a {
-	color: var(--accent-cyan);
-	text-decoration: none;
-	transition: color 0.2s;
-}
-
-a:hover {
-	color: #fff;
-}
-
-
-/* Stile per il pulsante "Torna alla Home" */
-.back-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(0, 210, 255, 0.3);
-    color: var(--accent-cyan);
-    border: 1px solid rgba(0, 210, 255, 0.3);
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: 600;
-    margin-bottom: 2rem;
-    transition: all 0.2s ease;
-}
-
-.back-button:hover {
-    background-color: rgba(63, 198, 228, 0.432);
-    transform: translateX(-5px); /* Si sposta leggermente a sinistra all'hover */
-    color: #fff;
-}
-
-/* Griglia per la Galleria Multimediale */
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin-top: 2rem;
-    margin-bottom: 3rem;
-    /* Tutti i media partono dalla stessa riga in alto. Con align-items: center
-       una cella con didascalia (vedi .gallery-figure) è più alta delle altre di
-       tutta l'altezza del testo, e la griglia ricentrava le vicine spingendole
-       in giù: il video finiva ~15px più in alto delle foto accanto. Il testo
-       cresce verso il basso, quindi da 'start' non sposta nulla. */
-    align-items: start;
-}
-
-/* Stile uniforme per foto e video nella galleria */
-.gallery-item {
-    width: 100%;
-    height: 250px;
-    object-fit: cover; /* Taglia i bordi in eccesso per fare quadrati/rettangoli perfetti */
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background-color: var(--bg-card);
-    transition: transform 0.3s ease;
-}
-
-.gallery-item:hover {
-    transform: scale(1.02);
-}
-
-/* Scatti verticali: a 250px in cover se ne vedrebbe solo una fascia orizzontale.
-   Qui la cella è più alta e l'immagine sta dentro intera (contain), col fondo
-   della card a fare da cornice ai lati. */
-.gallery-item--portrait {
-    height: 460px;
-    object-fit: contain;
-}
-
-/* Media con didascalia: la <figure> prende il posto dell'immagine come cella
-   della griglia, il media resta un .gallery-item e il testo gli sta sotto. */
-.gallery-figure {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.gallery-caption {
-    margin-top: 10px;
-    font-size: 0.9rem;
-    line-height: 1.45;
-    color: var(--text-muted);
-}
-
-.project-details-text {
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    margin-bottom: 2rem;
-}
-
-/* Data e ruolo sotto il titolo di progetto */
-.project-meta {
-    font-size: 0.9rem;
-    color: var(--accent-cyan);
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    margin-bottom: 1rem;
-}
-
-/* --- RADAR CHART (Contributo personale vs difficolta' del progetto) --- */
-
+/* ---------- Pagine di dettaglio ---------- */
+/* Radar "Project breakdown": stesso markup e stesse classi del sito vecchio, cosi'
+   un grafico si puo' copiare da una pagina all'altra. Le due serie non si
+   distinguono solo per colore: la difficolta' ha anche il contorno tratteggiato. */
 .radar-figure {
-    /* La coppia di colori delle serie e' stata validata proprio su questa
-       superficie (#1a1d24): se cambi lo sfondo, rivalida i colori. */
-    --viz-s1: #3987e5;   /* Personal Contribution */
-    --viz-s2: #d95926;   /* Project Difficulty    */
-
-    margin: 0 0 3rem 0;
-    padding: 24px;
-    background-color: var(--bg-card);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-
-    display: grid;
-    grid-template-columns: minmax(260px, 380px) minmax(220px, 1fr);
-    grid-template-areas:
-        "caption caption"
-        "legend  legend"
-        "chart   table";
-    align-items: center;
-    gap: 8px 32px;
+	--viz-s1: var(--gold);   /* Personal Contribution */
+	--viz-s2: var(--silk);   /* Project Difficulty    */
+	margin: 2rem 0 0;
+	padding: 1.5rem;
+	background: var(--mask-deep);
+	clip-path: var(--chamfer);
+	display: grid;
+	grid-template-columns: minmax(260px, 380px) minmax(220px, 1fr);
+	grid-template-areas:
+		"caption caption"
+		"legend  legend"
+		"chart   table";
+	align-items: center;
+	gap: 8px 2rem;
 }
-
-.radar-caption {
-    grid-area: caption;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #fff;
-}
-
-.radar-caption span {
-    font-weight: 400;
-    color: var(--text-muted);
-}
-
-/* Legenda: l'identita' della serie non e' mai affidata al solo colore,
-   c'e' sempre anche l'etichetta testuale (e la tabella qui sotto). */
-/* Nota per i progetti con una sola serie */
-.radar-note {
-    grid-area: legend;
-    margin: 0 0 8px 0;
-    font-size: 0.85rem;
-    line-height: 1.5;
-    color: var(--text-muted);
-    max-width: 62ch;
-}
-
-.radar-legend {
-    grid-area: legend;
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px 20px;
-    margin: 0 0 8px 0;
-    padding: 0;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-}
-
-.radar-legend li {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.radar-swatch {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-}
-
-.radar-svg {
-    grid-area: chart;
-    width: 100%;
-    height: auto;
-}
-
-/* Griglia e assi restano recessivi: non devono competere con i dati */
-.radar-grid {
-    fill: none;
-    stroke: rgba(255, 255, 255, 0.08);
-    stroke-width: 1;
-}
-
-.radar-grid-outer {
-    stroke: rgba(255, 255, 255, 0.16);
-}
-
-.radar-spoke {
-    stroke: rgba(255, 255, 255, 0.12);
-    stroke-width: 1;
-}
-
-.radar-tick {
-    fill: var(--text-muted);
-    font-size: 9px;
-    text-anchor: middle;
-    opacity: 0.7;
-}
-
-.radar-axis-label {
-    fill: var(--text-main);
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.radar-area {
-    fill-opacity: 0.22;
-    stroke-width: 2;
-    stroke-linejoin: round;
-}
-
-/* Pallini a tinta piena, senza contorno */
-.radar-dot {
-    stroke: none;
-}
-
+.radar-caption { grid-area: caption; font-family: 'Chakra Petch', sans-serif; font-size: 1.25rem; }
+.radar-caption span { font-size: 1rem; color: var(--tin); }
+.radar-note { grid-area: legend; margin: 0 0 8px; max-width: 62ch; font-size: .85rem; line-height: 1.5; color: var(--tin); }
+.radar-legend { grid-area: legend; list-style: none; display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 0 0 8px; padding: 0; font-size: .85rem; color: var(--tin); }
+.radar-legend li { display: flex; align-items: center; gap: 8px; }
+.radar-swatch { width: 10px; height: 10px; flex-shrink: 0; }
+.radar-svg { grid-area: chart; width: 100%; height: auto; }
+.radar-grid { fill: none; stroke: var(--trace); stroke-width: 1; }
+.radar-grid-outer { stroke: var(--tin); stroke-opacity: .5; }
+.radar-spoke { stroke: var(--trace); stroke-width: 1; }
+.radar-tick { fill: var(--tin); font-size: 9px; text-anchor: middle; }
+.radar-axis-label { fill: var(--silk); font-family: 'Chakra Petch', sans-serif; font-size: 12px; font-weight: 500; }
+.radar-area { fill-opacity: .22; stroke-width: 2; stroke-linejoin: round; }
 .radar-contribution { fill: var(--viz-s1); stroke: var(--viz-s1); }
-.radar-difficulty   { fill: var(--viz-s2); stroke: var(--viz-s2); }
-.radar-dot.radar-contribution { fill: var(--viz-s1); stroke: none; }
-.radar-dot.radar-difficulty   { fill: var(--viz-s2); stroke: none; }
+.radar-difficulty { fill: var(--viz-s2); stroke: var(--viz-s2); }
+.radar-area.radar-difficulty { fill-opacity: .1; stroke-dasharray: 5 4; }
+.radar-dot.radar-contribution, .radar-dot.radar-difficulty { stroke: none; }
+.radar-table { grid-area: table; border-collapse: collapse; font-size: .9rem; }
+.radar-table th, .radar-table td { padding: 7px 10px; text-align: right; border-bottom: 1px solid var(--trace); white-space: nowrap; }
+.radar-table thead th { font-size: .8rem; font-weight: 400; color: var(--tin); }
+.radar-table tbody th { text-align: left; font-family: 'Chakra Petch', sans-serif; font-weight: 500; color: var(--gold); }
+.radar-table tbody td { font-variant-numeric: tabular-nums; }
 
-/* Vista tabellare: i valori esatti, utile anche a screen reader e in stampa */
-.radar-table {
-    grid-area: table;
-    border-collapse: collapse;
-    font-size: 0.85rem;
-    color: var(--text-muted);
+/* Galleria: stesso layout del sito vecchio. Celle da 250px in cover; gli scatti
+   verticali (--portrait) hanno una cella piu' alta e stanno dentro interi. */
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; align-items: start; }
+.gallery-item { display: block; width: 100%; height: 250px; object-fit: cover; background: var(--mask-deep); border: 1px solid var(--trace); transition: transform .3s ease; }
+.gallery-item:hover { transform: scale(1.02); }
+.gallery-item--portrait { height: 460px; object-fit: contain; }
+.gallery-figure { margin: 0; display: flex; flex-direction: column; }
+.gallery-caption { margin-top: 10px; font-size: .9rem; line-height: 1.45; color: var(--tin); }
+
+/* ---------- Contatti ---------- */
+.contact { display: flex; flex-wrap: wrap; gap: .5rem 3rem; margin-top: 4rem; padding-top: 2rem; border-top: 6px solid var(--trace); font-size: 1.15rem; }
+
+@media (max-width: 860px) {
+	.two-col, .cards { grid-template-columns: 1fr; }
+	.hero-inner { grid-template-columns: 1fr; }
+	.hero-inner > img { max-width: 190px; }
+	.radar-figure { grid-template-columns: 1fr; grid-template-areas: "caption" "legend" "chart" "table"; gap: 8px 0; }
+	.radar-table { width: 100%; margin-top: 16px; }
 }
 
-.radar-table th,
-.radar-table td {
-    padding: 7px 10px;
-    text-align: right;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    white-space: nowrap;
-}
-
-.radar-table thead th {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--text-muted);
-    font-weight: 600;
-}
-
-.radar-table tbody th {
-    text-align: left;
-    font-weight: 500;
-    color: var(--text-main);
-}
-
-.radar-table tbody td {
-    font-variant-numeric: tabular-nums;
-    color: var(--text-main);
-}
-
-@media (max-width: 720px) {
-    /* Su schermo stretto le due foto si sovrapporrebbero: ne resta una, in cover. */
-    .header-hero {
-        padding: 4.5rem 1.5rem;
-    }
-
-    /* Qui la foto e' una sola in cover: la maschera del desktop le scaverebbe
-       una striscia trasparente proprio in mezzo. */
-    .header-hero::before {
-        background-image: url("images/talk-1.jpg");
-        background-position: center;
-        background-size: cover;
-        opacity: 0.22;
-        -webkit-mask-image: none;
-        mask-image: none;
-    }
-
-    .header-hero::after {
-        background-image:
-            linear-gradient(180deg, rgba(15,17,21,0.55) 0%, rgba(15,17,21,0.5) 45%, rgba(15,17,21,0.8) 100%);
-    }
-
-    .about-layout {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .about-photo {
-        max-width: 260px;
-        margin: 0 auto;
-    }
-
-    .radar-figure {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "caption"
-            "legend"
-            "chart"
-            "table";
-        gap: 8px 0;
-    }
-
-    .radar-table {
-        width: 100%;
-        margin-top: 16px;
-    }
-}
-
-
-
-/* Stile del singolo mini-tag */
-.mini-tag {
-    background: rgba(0, 210, 255, 0.05); /* Sfondo quasi trasparente */
-    color: var(--text-muted); /* Colore del testo più spento */
-    border: 1px solid rgba(0, 210, 255, 0.2);
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-size: 0.75rem; /* Più piccoli rispetto a quelli principali */
-    font-weight: 500;
-    transition: all 0.2s ease;
-}
-
-/* Effetto hover (opzionale) anche per i mini-tag */
-.project-card:hover .mini-tag {
-    color: var(--accent-cyan);
-    border-color: rgba(0, 210, 255, 0.4);
+@media (prefers-reduced-motion: reduce) {
+	.level, .gallery-item { transition: none; }
 }
